@@ -11,7 +11,7 @@ export const eduTestnet = {
   name: 'EDU Chain Testnet',
   nativeCurrency: { name: 'EDU Token', symbol: 'EDU', decimals: 18 },
   rpcUrls: {
-    default: { http: ['wss://open-campus-codex-sepolia.drpc.org'] },
+    default: { http: ['https://open-campus-codex-sepolia.drpc.org'] },
   },
   blockExplorers: {
     default: { name: 'EDU Blockscout', url: 'https://edu-chain-testnet.blockscout.com/' },

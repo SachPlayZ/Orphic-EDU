@@ -38,11 +38,13 @@ const Page = () => {
       if (data) {
         if (data === 1) {
           setFaction("Dragons");
+          console.log("Data:", Number(data));
           if (Number(data2) == 0) router.push("/first-mon?faction=dragon");
           else router.push("/play");
           console.log("Faction:", faction);
         } else if (data === 2) {
           setFaction("Tigers");
+          console.log("Data:", Number(data));
           if (Number(data2) == 0) router.push("/first-mon?faction=tiger");
           else router.push("/play");
         }

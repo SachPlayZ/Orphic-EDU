@@ -3,16 +3,21 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useWriteContract } from "wagmi";
-import { Loader2, Zap, Shield, Heart } from 'lucide-react';
+import { Loader2, Zap, Shield, Heart } from "lucide-react";
 import Image from "next/image";
 import BattleArena from "./BattleArena";
 import MoveSelection from "./MoveSelection";
 import BattleLog from "./BattleLog";
 import BattleStats from "./BattleStats";
 import { Monster, Move, BattleState, Rarity } from "./types";
-import { generateRandomMonster1, generateRandomMonster2, selectRandomMove, generateMonsterNFT } from "./utils";
+import {
+  generateRandomMonster1,
+  generateRandomMonster2,
+  selectRandomMove,
+  generateMonsterNFT,
+} from "./utils";
 import { motion, AnimatePresence } from "framer-motion";
-import confetti from 'canvas-confetti';
+import confetti from "canvas-confetti";
 import abi from "@/abi";
 
 const contractAddress = "0xa1Db4fBe80E7064E8bC70b6138a11572cFE1f79b";
@@ -38,31 +43,40 @@ export default function BattlePage() {
   useEffect(() => {
     const playerMonster = generateRandomMonster1();
     const opponentMonster = generateRandomMonster2();
-    
-    setBattleState(prev => ({
+
+    setBattleState((prev) => ({
       ...prev,
       playerMonster,
       opponentMonster,
       playerHealth: playerMonster.hp,
       opponentHealth: opponentMonster.hp,
     }));
-    
+
     setIsLoading(false);
   }, []);
 
   const handleMoveSelection = (move: Move) => {
     if (battleState.currentTurn !== "player") return;
 
-    const playerDamage = calculateDamage(battleState.playerMonster!, move, battleState.opponentMonster!);
-    const newOpponentHealth = Math.max(0, battleState.opponentHealth - playerDamage);
+    const playerDamage = calculateDamage(
+      battleState.playerMonster!,
+      move,
+      battleState.opponentMonster!
+    );
+    const newOpponentHealth = Math.max(
+      0,
+      battleState.opponentHealth - playerDamage
+    );
 
-    const updatedBattleState = {
+    const updatedBattleState: BattleState = {
       ...battleState,
       opponentHealth: newOpponentHealth,
       currentTurn: "opponent",
       battleLog: [
         ...battleState.battleLog,
-        `${battleState.playerMonster!.name} used ${move.name} and dealt ${playerDamage} damage!`,
+        `${battleState.playerMonster!.name} used ${
+          move.name
+        } and dealt ${playerDamage} damage!`,
       ],
       roundCount: battleState.roundCount + 1,
     };
@@ -71,34 +85,40 @@ export default function BattlePage() {
 
     setTimeout(() => {
       const opponentMove = selectRandomMove(battleState.opponentMonster!.moves);
-      const opponentDamage = calculateDamage(battleState.opponentMonster!, opponentMove, battleState.playerMonster!);
-      const newPlayerHealth = Math.max(0, battleState.playerHealth - opponentDamage);
+      const opponentDamage = calculateDamage(
+        battleState.opponentMonster!,
+        opponentMove,
+        battleState.playerMonster!
+      );
+      const newPlayerHealth = Math.max(
+        0,
+        battleState.playerHealth - opponentDamage
+      );
 
-      setBattleState(prev => ({
+      setBattleState((prev) => ({
         ...prev,
         playerHealth: newPlayerHealth,
         currentTurn: "player",
         battleLog: [
           ...prev.battleLog,
-          `${prev.opponentMonster!.name} used ${opponentMove.name} and dealt ${opponentDamage} damage!`,
+          `${prev.opponentMonster!.name} used ${
+            opponentMove.name
+          } and dealt ${opponentDamage} damage!`,
         ],
       }));
 
       if (newPlayerHealth === 0 || newOpponentHealth === 0) {
         const winner = newPlayerHealth === 0 ? "Opponent" : "Player";
-        setBattleState(prev => ({
+        setBattleState((prev) => ({
           ...prev,
-          battleLog: [
-            ...prev.battleLog,
-            `Battle ended! ${winner} wins!`,
-          ],
+          battleLog: [...prev.battleLog, `Battle ended! ${winner} wins!`],
         }));
         setShowVictoryScreen(true);
         if (winner === "Player") {
           confetti({
             particleCount: 100,
             spread: 70,
-            origin: { y: 0.6 }
+            origin: { y: 0.6 },
           });
           handleVictory();
         }
@@ -106,12 +126,16 @@ export default function BattlePage() {
     }, 1500);
   };
 
-  const calculateDamage = (attacker: Monster, move: Move, defender: Monster) => {
+  const calculateDamage = (
+    attacker: Monster,
+    move: Move,
+    defender: Monster
+  ) => {
     const baseDamage = move.power;
     const attackStat = attacker.attack;
     const defenseStat = defender.defense;
     const randomFactor = Math.random() * (1.1 - 0.9) + 0.9;
-    return Math.floor((baseDamage * (attackStat / defenseStat) * randomFactor));
+    return Math.floor(baseDamage * (attackStat / defenseStat) * randomFactor);
   };
 
   const handleVictory = async () => {
@@ -149,11 +173,20 @@ export default function BattlePage() {
 
       let rarityEnum;
       switch (monster.rarity) {
-        case "common": rarityEnum = 0; break;
-        case "rare": rarityEnum = 1; break;
-        case "epic": rarityEnum = 2; break;
-        case "legendary": rarityEnum = 3; break;
-        default: rarityEnum = 0;
+        case "common":
+          rarityEnum = 0;
+          break;
+        case "rare":
+          rarityEnum = 1;
+          break;
+        case "epic":
+          rarityEnum = 2;
+          break;
+        case "legendary":
+          rarityEnum = 3;
+          break;
+        default:
+          rarityEnum = 0;
       }
 
       await writeContractAsync({
@@ -188,7 +221,7 @@ export default function BattlePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-black text-white p-4 overflow-hidden">
       <div className="container mx-auto px-4 py-8">
-        <motion.h1 
+        <motion.h1
           className="text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -267,7 +300,9 @@ export default function BattlePage() {
                 </p>
                 {mintedMonster && mintedImage && (
                   <div className="mb-6">
-                    <p className="text-lg font-semibold mb-2">You've won a new monster!</p>
+                    <p className="text-lg font-semibold mb-2">
+                      You've won a new monster!
+                    </p>
                     <div className="w-48 h-48 mx-auto mb-4 relative">
                       <Image
                         src={mintedImage}
@@ -278,8 +313,13 @@ export default function BattlePage() {
                       />
                     </div>
                     <p className="text-xl font-bold">{mintedMonster.name}</p>
-                    <p className={`text-lg ${getRarityColor(mintedMonster.rarity)}`}>
-                      {mintedMonster.rarity.charAt(0).toUpperCase() + mintedMonster.rarity.slice(1)}
+                    <p
+                      className={`text-lg ${getRarityColor(
+                        mintedMonster.rarity
+                      )}`}
+                    >
+                      {mintedMonster.rarity.charAt(0).toUpperCase() +
+                        mintedMonster.rarity.slice(1)}
                     </p>
                     <div className="grid grid-cols-3 gap-2 mt-4">
                       <div className="bg-red-800 bg-opacity-50 p-2 rounded-lg">
@@ -324,11 +364,15 @@ export default function BattlePage() {
 
 function getRarityColor(rarity: Rarity): string {
   switch (rarity) {
-    case "common": return "text-gray-400";
-    case "rare": return "text-blue-400";
-    case "epic": return "text-purple-400";
-    case "legendary": return "text-yellow-400";
-    default: return "text-white";
+    case "common":
+      return "text-gray-400";
+    case "rare":
+      return "text-blue-400";
+    case "epic":
+      return "text-purple-400";
+    case "legendary":
+      return "text-yellow-400";
+    default:
+      return "text-white";
   }
 }
-
