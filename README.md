@@ -1,96 +1,67 @@
 ![image](https://github.com/user-attachments/assets/ba712688-0f2f-4c48-b1c9-7dd06446182a)
 
-Problem Statement
-Orphic addresses several critical challenges in the current blockchain gaming and NFT ecosystems:
-1. Limited Gaming Interactivity
-Traditional NFT games suffer from:
+# Orphic: AI-Powered NFT Gaming DApp
 
-Static gameplay mechanics
-Repetitive and predictable interactions
-Lack of natural, intuitive user interfaces
+## 🎮 Project Overview
 
-Orphic Solution: By integrating voice-command gameplay and AI-driven interactions, the platform transforms gaming from a rigid, click-based experience to a more dynamic, conversational interaction.
-2. NFT Generation and Valuation Limitations
-Existing NFT platforms struggle with:
+Orphic is a revolutionary blockchain gaming platform that combines AI-generated NFTs, voice-command gameplay, and decentralized trading mechanics. Our unique game enables players to battle, trade, and collect monsters across two factions: Dragons and Tigers.
 
-Uniform, non-unique asset generation
-Opaque valuation mechanisms
-Limited provenance tracking
+## 🚀 Key Features
 
-Orphic Solution:
+- **AI-Generated Monster NFTs**
+  - Unique artwork for each monster
+  - Dynamic stats and abilities
+  - Rarity-based generation
 
-AI-generated artwork ensures each monster is truly unique
-Dynamic stat evolution based on gameplay creates inherent value
-On-chain metadata provides transparent asset history and rarity verification
+- **Voice Command Gameplay**
+  - Natural language battle controls
+  - Real-time AI command parsing
+  - Intuitive user interactions
 
-3. Fragmented Gaming Ecosystems
-Current blockchain games face:
+- **Decentralized Trading**
+  - Telegram bot integration
+  - Marketplace for NFT exchanges
+  - Transparent blockchain transactions
 
-Siloed platforms
-Complex user onboarding
-Limited cross-platform engagement
+## 🔧 Tech Stack
 
-Orphic Solution:
+- **Frontend**: React.js, Web3.js
+- **Backend**: Node.js
+- **Blockchain**: Base (Ethereum Layer 2)
+- **AI**: GPT Models, GANs
+- **Oracles**: Chainlink VRF
+- **Bot**: Python, Telegram Bot API
 
-Seamless Telegram integration
-Wallet-based registration simplifying onboarding
-Cross-platform synchronization of game states and assets
+## 🌟 Hackathon Tracks
 
-4. Deterministic vs. True Randomness
-Many blockchain games have:
+- **Play** - Educational NFT game
+- 
+## 📦 Installation
 
-Pseudo-random generation
-Predictable asset creation
-Potential manipulation of game mechanics
+```bash
+git clone https://github.com/SachPlayZ/Orphic-EDU.git
+cd orphic-edu
+cd frontend
+npm install
+npm run dev
+```
 
-Orphic Solution:
+## 🎲 How to Play
 
-Chainlink VRF (Verifiable Random Function) for genuine randomness
-Transparent oracle-based generation of monster rarities
-Cryptographically secure asset creation
-
-5. Complex Trading Mechanisms
-NFT marketplaces often:
-
-Require technical knowledge
-Have complicated trading interfaces
-Lack intuitive transaction methods
-
-Orphic Solution:
-
-Natural language trading via AI-powered Telegram bot
-Voice command trade executions
-Simplified marketplace interactions
-
-Technical Innovation Highlights
-
-Multi-Agent AI Architecture:
-
-Real-time command parsing
-Dynamic gameplay assistance
-Intelligent trading interfaces
+1. Connect your crypto wallet
+2. Choose your faction (Dragons or Tigers)
+3. Receive a starter monster NFT
+4. Battle using voice commands
+5. Trade and collect unique monsters
 
 
-Decentralized Design:
+## 🏆 Acknowledgments
 
-Smart contract governance
-On-chain asset management
-Transparent, auditable transactions
+- EDU Chain
+- Bullieverse AI Agents
+- Chainlink VRF
+- Telegram Bot API
 
+---
 
-Advanced AI Integration:
-
-GANs for unique artwork generation
-GPT-based natural language processing
-Adaptive gameplay mechanics
-
-
-
-User Value Proposition
-Orphic isn't just a game—it's a next-generation interactive platform that:
-
-Democratizes NFT gaming
-Provides intuitive, AI-enhanced interactions
-Creates a truly dynamic digital collectible ecosystem
-
-By solving these intricate technical and user experience challenges, Orphic represents a quantum leap in blockchain gaming, making complex technologies accessible and engaging for both crypto enthusiasts and casual gamers.
+**Built with ❤️ during EDU Chain Co-learning Camp**
